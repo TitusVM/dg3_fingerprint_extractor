@@ -44,7 +44,6 @@ node index.js DG3.bin --output ./my_fingerprints
 
 - [@li0ard/tsemrtd](https://www.npmjs.com/package/@li0ard/tsemrtd): For parsing DG3 files
 - [canvas](https://www.npmjs.com/package/canvas): For image processing
-- [commander](https://www.npmjs.com/package/commander): For command-line interface
 
 ## Note
 

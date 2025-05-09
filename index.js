@@ -8,7 +8,6 @@
 import fs from 'fs';
 import path from 'path';
 import { DG3 } from '@li0ard/tsemrtd/dist/index.js';
-import { createCanvas, ImageData } from 'canvas';
 import { program } from 'commander';
 
 program
