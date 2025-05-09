@@ -1,0 +1,3 @@
+*.bin
+fingerprints
+node_modules

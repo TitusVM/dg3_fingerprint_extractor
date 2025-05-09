@@ -1,0 +1,18 @@
+{
+  "name": "test_tsemrtd",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@li0ard/tsemrtd": "^0.2.2",
+    "canvas": "^3.1.0",
+    "commander": "^13.1.0"
+  }
+}
