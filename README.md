@@ -1,4 +1,4 @@
-# DG3 Fingerprint Extractor
+# DG2 and DG3 Extractor
 
 A command-line tool for extracting fingerprint images from DG3 descriptor files using the tsemrtd library.
 
