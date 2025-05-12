@@ -1,56 +1,61 @@
-# DG2/DG3 Biometric Data Extractor
+#!/usr/bin/env node
 
-A command-line tool for extracting biometric data from electronic travel documents, including:
-- Fingerprint images from DG3 descriptor files (WSQ format)
-- Facial images from DG2 descriptor files (JP2 format)
+/**
+ * CLI tool: generate biometric images from DG2/DG3 descriptors using tsemrtd.js
+ * Usage: node index.js <input-file> [--output <output-directory>] [--type <dg2|dg3>]
+ */
 
-## Description
+import fs from 'fs';
+import path from 'path';
+import { DG2, DG3 } from '@li0ard/tsemrtd/dist/index.js';
+import { program } from 'commander';
 
-This tool parses DG2 and DG3 descriptor files (typically found in electronic documents like ePassports) and extracts the biometric data. DG3 fingerprint data is saved as WSQ (Wavelet Scalar Quantization) files, while DG2 facial data is saved as JP2 (JPEG 2000) files.
+program
+  .argument('<input>', 'DG descriptor file')
+  .option('-o, --output <dir>', 'Output directory', './output')
+  .option('-t, --type <type>', 'Document type to extract: dg2 (face) or dg3 (fingerprint)', 'dg3')
+  .parse(process.argv);
 
-## Installation
+const options = program.opts();
+const inputPath = program.args[0];
+const outputDir = options.output;
+const type = options.type.toLowerCase();
 
-```bash
-# Clone this repository
-git clone <repository-url>
+// Ensure output directory exists
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir, { recursive: true });
+}
 
-# Install dependencies
-npm install
-```
+// Load binary file
+try {
+  const file_buffer = fs.readFileSync(inputPath);
+  
+  if (type === 'dg3') {
+    const fingerprint = DG3.load(file_buffer);
+    console.log('Fingerprint structure:', Object.keys(fingerprint));
 
-## Usage
-
-```bash
-node index.js <input-file> [--output <output-directory>] [--type <dg2|dg3>]
-```
-
-### Arguments
-
-- `<input-file>`: Path to the DG2 or DG3 descriptor file (required)
-
-### Options
-
-- `-o, --output <dir>`: Output directory for extracted data (default: './output')
-- `-t, --type <type>`: Document type to extract: dg2 (face) or dg3 (fingerprint) (default: 'dg3')
-
-## Examples
-
-```bash
-# Extract fingerprints from DG3.bin to the default directory
-bun run index.js DG3.bin --type dg3
-
-# Extract facial images from DG2.bin to a custom directory
-bun run index.js DG2.bin --type dg2 --output ./facial_data
-
-# Using default type (dg3)
-bun run index.js DG3.bin --output ./my_fingerprints
-```
-
-## Dependencies
-
-- [@li0ard/tsemrtd](https://www.npmjs.com/package/@li0ard/tsemrtd): For parsing DG2/DG3 files
-- [commander](https://www.npmjs.com/package/commander): For command-line interface
-
-## Note
-
-This tool is designed to work with Bun runtime for file writing operations.
+    for (const [index, finger] of fingerprint.entries()) {
+      const imageData = fingerprint[index].imageData;
+      await Bun.write(`${outputDir}/fingerprint_${index}.wsq`, imageData);
+    }
+    console.log(`Extracted ${fingerprint.length} fingerprints to ${outputDir}`);
+  } 
+  else if (type === 'dg2') {
+    const faceData = DG2.load(file_buffer);
+    console.log('Face data structure:', Object.keys(faceData));
+    
+    for (const [index, face] of faceData.entries()) {
+      const imageData = faceData[index].imageData;
+      await Bun.write(`${outputDir}/face_${index}.jp2`, imageData);
+    }
+    console.log(`Extracted ${faceData.length} facial images to ${outputDir}`);
+  }
+  else {
+    console.error('Invalid type. Use either "dg2" or "dg3"');
+    process.exit(1);
+  }
+  
+} catch (err) {
+  console.error(`Failed to read or parse ${type.toUpperCase()} file:`, err.message);
+  process.exit(1);
+}
