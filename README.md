@@ -21,7 +21,7 @@ npm install
 ## Usage
 
 ```bash
-node index.js <input-file> [--output <output-directory>] [--type <dg2|dg3>]
+bun run index.js <input-file> [--output <output-directory>] [--type <dg2|dg3>]
 ```
 
 ### Arguments
