@@ -8,6 +8,7 @@
 import fs from 'fs';
 import path from 'path';
 import { DG2, DG3 } from '@li0ard/tsemrtd/dist/index.js';
+import { FingerType } from '@li0ard/tsemrtd/dist/consts/enums.js';
 import { program } from 'commander';
 
 program
@@ -33,6 +34,10 @@ try {
   if (type === 'dg3') {
     const fingerprint = DG3.load(file_buffer);
     console.log('Fingerprint structure:', Object.keys(fingerprint));
+    for (const [index, finger] of fingerprint.entries()) {
+      const fpType = FingerType[finger.fingerType];
+      console.log(`Fingerprint ${index} type: ${fpType}`);
+    }
 
     for (const [index, finger] of fingerprint.entries()) {
       const imageData = fingerprint[index].imageData;
