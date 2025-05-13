@@ -1,4 +1,7 @@
-# DG2/DG3 Biometric Data Extractor
+# The Web App is deployed
+[Biometric Data Extractor](https://titusvm.github.io/emrtd_biometric_data_extractor)
+
+# DG2/DG3 Biometric Data Extractor CLI Tooling
 
 A command-line tool for extracting biometric data from electronic travel documents, including:
 - Fingerprint images from DG3 descriptor files (WSQ format)
@@ -54,3 +57,7 @@ bun run index.js DG3.bin --output ./my_fingerprints
 ## Note
 
 This tool is designed to work with Bun runtime for file writing operations.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
