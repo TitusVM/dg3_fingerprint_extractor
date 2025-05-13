@@ -4,6 +4,7 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import path from 'path'
 
 export default defineConfig({
+  base: '/emrtd_biometric_data_extractor/',
   resolve: {
     alias: {
       '@li0ard/tsemrtd': './node_modules/@li0ard/tsemrtd/dist/index.js',
