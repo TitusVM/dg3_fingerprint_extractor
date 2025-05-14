@@ -22,7 +22,6 @@ const BiometricExtractor = {
       const hexData = Array.from(rawData)
         .map(byte => byte.toString(16).padStart(2, '0'))
         .join('')
-      console.log('Hexadecimal data:', hexData) 
       const fingerprint = DG3.load(hexData)
       return fingerprint.map(finger => {
         const fpType = FingerType[finger.fingerType]

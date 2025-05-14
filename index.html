@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/favicon.ico">
     <title>Biometric Data Extractor</title>
-
     <script type="importmap">
     {
       "imports": {
@@ -15,255 +14,7 @@
       }
     }
     </script>
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --accent-color: #27ae60;
-            --bg-color: #f5f7fa;
-            --card-bg: #ffffff;
-            --text-color: #333333;
-            --border-radius: 8px;
-            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-        
-        .description {
-            color: #555;
-            margin-bottom: 30px;
-        }
-        
-        .card {
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            padding: 25px;
-            margin-bottom: 25px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-        
-        .upload-area {
-            border: 2px dashed #ccc;
-            border-radius: var(--border-radius);
-            padding: 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .upload-area:hover, .upload-area.dragover {
-            border-color: var(--accent-color);
-            background-color: rgba(39, 174, 96, 0.05);
-        }
-        
-        .upload-icon {
-            font-size: 36px;
-            color: #999;
-            margin-bottom: 10px;
-        }
-        
-        .btn {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            font-size: 16px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: background-color 0.3s;
-            display: inline-block;
-        }
-        
-        .btn:hover {
-            background-color: #219653;
-        }
-        
-        .btn:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
-        
-        .btn-block {
-            display: block;
-            width: 100%;
-        }
-        
-        .type-toggle {
-            display: flex;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-        }
-        
-        .type-toggle label {
-            flex: 1;
-            margin: 0;
-            padding: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .type-toggle input {
-            display: none;
-        }
-        
-        .type-toggle input:checked + label {
-            background-color: var(--accent-color);
-            color: white;
-            font-weight: bold;
-        }
-        
-        .result-section {
-            display: none;
-        }
-        
-        .result-section.active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .info-item {
-            margin-bottom: 15px;
-        }
-        
-        .info-label {
-            font-weight: 600;
-            margin-right: 10px;
-        }
-        
-        .info-value {
-            color: var(--accent-color);
-            font-weight: 500;
-        }
-        
-        .fingerprint-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .fingerprint-card {
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            padding: 15px;
-            width: calc(50% - 10px);
-            box-sizing: border-box;
-        }
-        
-        .progress-container {
-            width: 100%;
-            background-color: #e0e0e0;
-            border-radius: 4px;
-            margin-top: 20px;
-            display: none;
-        }
-        
-        .progress-bar {
-            height: 10px;
-            background-color: var(--accent-color);
-            border-radius: 4px;
-            width: 0%;
-            transition: width 0.3s;
-        }
-        
-        .download-container {
-            margin-top: 20px;
-        }
-        
-        .download-btn {
-            background-color: var(--primary-color);
-            margin-top: 10px;
-        }
-        
-        .download-btn:hover {
-            background-color: #3a506b;
-        }
-        
-        .alert {
-            padding: 15px;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            display: none;
-        }
-        
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #777;
-            font-size: 14px;
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .fingerprint-card {
-                width: 100%;
-            }
-            
-            .container {
-                padding: 10px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>
     <div class="container">
@@ -272,22 +23,18 @@
             <h1>Biometric Data Extractor</h1>
             <p class="description">Extract fingerprint and facial images from electronic travel document data files</p>
         </header>
-
         <div class="alert alert-danger" id="errorAlert"></div>
         <div class="alert alert-success" id="successAlert"></div>
-        
         <div class="card">
             <div class="form-group">
                 <label>Select Document Type</label>
                 <div class="type-toggle">
                     <input type="radio" name="dataType" id="typeDg3" value="dg3" checked>
                     <label for="typeDg3">DG3 (Fingerprints)</label>
-                    
                     <input type="radio" name="dataType" id="typeDg2" value="dg2">
                     <label for="typeDg2">DG2 (Facial Images)</label>
                 </div>
             </div>
-            
             <div class="form-group">
                 <label>Upload Document File</label>
                 <div class="upload-area" id="uploadArea">
@@ -298,28 +45,22 @@
                 </div>
                 <p id="selectedFileName" style="margin-top: 10px;"></p>
             </div>
-            
             <div class="progress-container" id="progressContainer">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
-            
             <button class="btn btn-block" id="processButton" disabled>
                 Process File
             </button>
         </div>
-        
         <div class="result-section" id="resultSection">
             <div class="card">
                 <h2>Extracted Data</h2>
-                
                 <div id="dg3Results">
                     <div id="fingerprintInfo"></div>
-                    
                     <div class="download-container">
                         <div id="downloadLinks"></div>
                     </div>
                 </div>
-                
                 <div id="dg2Results" style="display: none;">
                     <div class="download-container">
                         <h3>Extracted Facial Images</h3>
@@ -328,16 +69,71 @@
                 </div>
             </div>
         </div>
-        
         <footer>
             <p>DG2/DG3 Biometric Data Extractor Tool</p>
             <p>Licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>.</p>
             <p>&copy; 2025 TitusVM</p>
         </footer>
     </div>
-    
     <script type="module">
         import BiometricExtractor from './biometricExtractor.js';
+
+        const API_BASE = "http://localhost:8080/nbis-image-converter/api";
+        let apiAvailable = false;
+
+        async function checkApi() {
+            try {
+                const res = await fetch(`${API_BASE}/ping`, { cache: "no-store" });
+                if (res.ok && (await res.text()).trim() === "pong") {
+                    apiAvailable = true;
+                } else {
+                    apiAvailable = false;
+                }
+            } catch {
+                apiAvailable = false;
+            }
+        }
+
+        // Helper to convert ArrayBuffer to File for FormData
+        function arrayBufferToFile(buffer, filename, mime) {
+            return new File([buffer], filename, { type: mime });
+        }
+
+        // Convert WSQ to PNG using the API (multipart/form-data)
+        async function convertWSQtoPNG(wsqBuffer, index) {
+            if (!apiAvailable) return null;
+            try {
+                const formData = new FormData();
+                formData.append("file", arrayBufferToFile(wsqBuffer, `fingerprint_${index}.wsq`, "application/octet-stream"));
+                const res = await fetch(`${API_BASE}/wsq-png`, {
+                    method: "POST",
+                    body: formData
+                });
+                if (!res.ok) return null;
+                const blob = await res.blob();
+                return URL.createObjectURL(blob);
+            } catch {
+                return null;
+            }
+        }
+
+        // Convert JP2 to PNG using the API (multipart/form-data)
+        async function convertJP2toPNG(jp2Buffer, index) {
+            if (!apiAvailable) return null;
+            try {
+                const formData = new FormData();
+                formData.append("file", arrayBufferToFile(jp2Buffer, `face_${index}.jp2`, "image/jp2"));
+                const res = await fetch(`${API_BASE}/jp2-png`, {
+                    method: "POST",
+                    body: formData
+                });
+                if (!res.ok) return null;
+                const blob = await res.blob();
+                return URL.createObjectURL(blob);
+            } catch {
+                return null;
+            }
+        }
 
         document.addEventListener('DOMContentLoaded', function() {
             const fileInput = document.getElementById('fileInput');
@@ -354,31 +150,26 @@
             const fingerprintInfo = document.getElementById('fingerprintInfo');
             const downloadLinks = document.getElementById('downloadLinks');
             const faceImageContainer = document.getElementById('faceImageContainer');
-            
+
             // Drag and drop functionality
             uploadArea.addEventListener('click', () => fileInput.click());
-            
             uploadArea.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 uploadArea.classList.add('dragover');
             });
-            
             uploadArea.addEventListener('dragleave', () => {
                 uploadArea.classList.remove('dragover');
             });
-            
             uploadArea.addEventListener('drop', (e) => {
                 e.preventDefault();
                 uploadArea.classList.remove('dragover');
-                
                 if (e.dataTransfer.files.length) {
                     fileInput.files = e.dataTransfer.files;
                     handleFileSelected();
                 }
             });
-            
             fileInput.addEventListener('change', handleFileSelected);
-            
+
             function handleFileSelected() {
                 if (fileInput.files.length > 0) {
                     const file = fileInput.files[0];
@@ -386,25 +177,20 @@
                     processButton.disabled = false;
                 }
             }
-            
-            // Handle document type selection
+
             document.querySelectorAll('input[name="dataType"]').forEach(radio => {
                 radio.addEventListener('change', () => {
-                    // Reset the results when changing type
                     resultSection.classList.remove('active');
                 });
             });
-            
-            // Process button click handler
+
             processButton.addEventListener('click', processFile);
-            
+
             async function processFile() {
+                await checkApi();
                 const file = fileInput.files[0];
                 if (!file) return;
-                
                 const dataType = document.querySelector('input[name="dataType"]:checked').value;
-                
-                // Show progress and reset previous results
                 progressContainer.style.display = 'block';
                 progressBar.style.width = '0%';
                 resultSection.classList.remove('active');
@@ -413,47 +199,25 @@
                 fingerprintInfo.innerHTML = '';
                 downloadLinks.innerHTML = '';
                 faceImageContainer.innerHTML = '';
-            
-                
+
                 try {
-                    // Process file based on type
                     if (dataType === 'dg3') {
-                        // Show progress at 50%
-                        progressBar.style.width = '50%';
-                        
-                        // Extract DG3 fingerprint data
-                        if (!file) {
-                            throw new Error("No file selected or file is invalid.");
-                        }
+                        progressBar.style.width = '30%';
+                        if (!file) throw new Error("No file selected or file is invalid.");
                         const arrayBuffer = await file.arrayBuffer();
-                        if (!arrayBuffer) {
-                            throw new Error("Failed to read file as ArrayBuffer.");
-                        }
+                        if (!arrayBuffer) throw new Error("Failed to read file as ArrayBuffer.");
                         const fingerprints = await BiometricExtractor.extractDG3(arrayBuffer);
-                        
-                        // Complete progress
+                        progressBar.style.width = '60%';
+                        await displayDG3Results(file, fingerprints);
                         progressBar.style.width = '100%';
-                        
-                        // Display results after a short delay
-                        setTimeout(() => {
-                            progressContainer.style.display = 'none';
-                            displayDG3Results(file, fingerprints);
-                        }, 500);
+                        setTimeout(() => { progressContainer.style.display = 'none'; }, 500);
                     } else {
-                        // Show progress at 50%
-                        progressBar.style.width = '50%';
-                        
-                        // Extract DG2 face data
+                        progressBar.style.width = '30%';
                         const faceData = await BiometricExtractor.extractDG2(await file.arrayBuffer());
-                        
-                        // Complete progress
+                        progressBar.style.width = '60%';
+                        await displayDG2Results(file, faceData);
                         progressBar.style.width = '100%';
-                        
-                        // Display results after a short delay
-                        setTimeout(() => {
-                            progressContainer.style.display = 'none';
-                            displayDG2Results(file, faceData);
-                        }, 500);
+                        setTimeout(() => { progressContainer.style.display = 'none'; }, 500);
                     }
                 } catch (error) {
                     progressContainer.style.display = 'none';
@@ -461,21 +225,21 @@
                     errorAlert.style.display = 'block';
                 }
             }
-                
-            function displayDG3Results(file, fingerprints) {
-                // Display DG3 (fingerprint) results
+
+            async function displayDG3Results(file, fingerprints) {
                 dg3Results.style.display = 'block';
                 dg2Results.style.display = 'none';
-                
-                // Generate HTML for fingerprint info
                 let fingerprintHtml = '<div class="fingerprint-container">';
-                
-                fingerprints.forEach((fingerprint, index) => {
+                for (let index = 0; index < fingerprints.length; ++index) {
+                    const fingerprint = fingerprints[index];
                     const downloadUrl = BiometricExtractor.createDownloadUrl(
-                        fingerprint.imageData, 
+                        fingerprint.imageData,
                         'application/octet-stream'
                     );
-                    
+                    let pngUrl = null;
+                    if (apiAvailable) {
+                        pngUrl = await convertWSQtoPNG(fingerprint.imageData, index);
+                    }
                     fingerprintHtml += `
                         <div class="fingerprint-card">
                             <h3>Fingerprint ${index + 1}: ${formatFingerName(fingerprint.type)}</h3>
@@ -502,50 +266,45 @@
                             <a href="${downloadUrl}" download="${file.name.replace('.bin', '')}_${fingerprint.type.toLowerCase().replace(/\s+/g, '_')}.wsq" class="btn download-btn">
                                 Download WSQ File
                             </a>
+                            ${pngUrl ? `
+                            <div style="margin-top:10px;">
+                                <img src="${pngUrl}" alt="Fingerprint PNG" style="max-width:100%;max-height:200px;display:block;margin:auto;border:1px solid #ccc;border-radius:4px;">
+                                <a href="${pngUrl}" download="${file.name.replace('.bin', '')}_${fingerprint.type.toLowerCase().replace(/\s+/g, '_')}.png" class="btn download-btn" style="width:100%;margin-top:5px;">
+                                    Download PNG
+                                </a>
+                            </div>
+                            ` : ''}
                         </div>
                     `;
-                });
-                
+                }
                 fingerprintHtml += '</div>';
                 fingerprintInfo.innerHTML = fingerprintHtml;
-                
-                // Add download all button (in a real app, you'd create a zip file)
-                // downloadLinks.innerHTML = `
-                //     <button class="btn download-btn btn-block" id="downloadAllBtn">
-                //         Download All Files (ZIP)
-                //     </button>
-                // `;
-                
-                // Show results section and success message
                 resultSection.classList.add('active');
-                successAlert.textContent = `Successfully processed DG3 file. Found ${fingerprints.length} fingerprints.`;
+                successAlert.textContent = `Successfully processed DG3 file. Found ${fingerprints.length} fingerprints.${apiAvailable ? " (PNG conversion available)" : " (PNG conversion unavailable)"}`;
                 successAlert.style.display = 'block';
-                
-                // Scroll to results
                 resultSection.scrollIntoView({ behavior: 'smooth' });
             }
-            
-            function displayDG2Results(file, faceData) {
-                // Display DG2 (face) results
+
+            async function displayDG2Results(file, faceData) {
                 dg3Results.style.display = 'none';
                 dg2Results.style.display = 'block';
-                
                 let faceHtml = '';
-                
-                faceData.forEach((face, index) => {
+                for (let index = 0; index < faceData.length; ++index) {
+                    const face = faceData[index];
                     const downloadUrl = BiometricExtractor.createDownloadUrl(
                         face.imageData,
                         'image/jp2'
                     );
-                    
-                    // For display in browser, you might need to convert JP2 to a more widely supported format
-                    // Here we're just showing a placeholder
+                    let pngUrl = null;
+                    if (apiAvailable) {
+                        pngUrl = await convertJP2toPNG(face.imageData, index);
+                    }
                     faceHtml += `
                         <div style="text-align: center; margin: 20px 0;">
                             <div style="border: 1px solid #ddd; padding: 10px; display: inline-block;">
                                 <div style="width: 200px; height: 250px; background-color: #eee; 
                                     display: flex; align-items: center; justify-content: center;">
-                                    <span style="font-size: 60px;">👤</span>
+                                    ${pngUrl ? `<img src="${pngUrl}" alt="Face PNG" style="max-width:100%;max-height:100%;border-radius:4px;">` : `<span style="font-size: 60px;">👤</span>`}
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Format:</span>
@@ -555,40 +314,29 @@
                                     <span class="info-label">Size:</span>
                                     <span class="info-value">${face.width}x${face.height}</span>
                                 </div>
-                                <a href="${downloadUrl}" download="${file.name.replace('.bin', '')}_face_${index}.jp2" class="btn download-btn" style="margin-top: 10px; width: 200px;" onclick="return validateDownloadUrl('${downloadUrl}', this);">
-                                    Download Face Image
+                                <a href="${downloadUrl}" download="${file.name.replace('.bin', '')}_face_${index}.jp2" class="btn download-btn" style="margin-top: 10px; width: 200px;">
+                                    Download JP2
                                 </a>
+                                ${pngUrl ? `
+                                <a href="${pngUrl}" download="${file.name.replace('.bin', '')}_face_${index}.png" class="btn download-btn" style="margin-top: 10px; width: 200px;">
+                                    Download PNG
+                                </a>
+                                ` : ''}
                             </div>
                         </div>
                     `;
-                });
-                
+                }
                 faceImageContainer.innerHTML = faceHtml;
-                
-                // Show results section and success message
                 resultSection.classList.add('active');
-                successAlert.textContent = `Successfully processed DG2 file. Found ${faceData.length} facial images.`;
+                successAlert.textContent = `Successfully processed DG2 file. Found ${faceData.length} facial images.${apiAvailable ? " (PNG conversion available)" : " (PNG conversion unavailable)"}`;
                 successAlert.style.display = 'block';
-                
-                // Scroll to results
                 resultSection.scrollIntoView({ behavior: 'smooth' });
             }
-            
-            // Helper function to format finger names for display
+
             function formatFingerName(name) {
                 return name.split('_')
                     .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
                     .join(' ');
-            }
-            
-            // Validate and handle download URLs
-            function validateDownloadUrl(url, element) {
-                if (!url || url === 'undefined') {
-                    alert('Invalid download URL.');
-                    return false;
-                }
-                element.href = url; // Ensure the href is correctly set
-                return true;
             }
         });
     </script>
