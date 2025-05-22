@@ -21,6 +21,9 @@ git clone <repository-url>
 npm install
 ```
 
+## For WSQ and JP2 to PNG conversion
+**http://localhost:8080/nbis-image-converter/api/** needs to host the [https://github.com/TitusVM/nbis_image_converter](https://github.com/TitusVM/nbis_image_converter).
+
 ## Usage
 
 ```bash
